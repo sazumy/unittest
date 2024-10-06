@@ -76,7 +76,7 @@ describe("数値の検証", () => {
     });
   });
 
-  describe("オブジェクトの検証", () => {
+  describe("オブジェクト内の文字列の検証", () => {
     const str = "こんにちは世界";
     const obj = { status: 200, message: str };
     test("stringContaining", () => {
@@ -123,6 +123,29 @@ describe("数値の検証", () => {
     test("arrayContainingEqual", () => {
       expect(arr).toEqual(expect.arrayContaining(["banana"]));
       expect(arr).not.toEqual(expect.arrayContaining(["grape"]));
+    });
+  });
+
+  describe("オブジェクトの検証", () => {
+    const obj = { status: 200, message: "OK" };
+    test("toEqual", () => {
+      expect(obj).toEqual({ status: 200, message: "OK" });
+      expect(obj).not.toEqual({ status: 404, message: "Not Found" });
+    });
+
+    test("toMatchObject", () => {
+      expect(obj).toMatchObject({ status: 200 }); // 部分一致でOK
+      expect(obj).not.toMatchObject({ status: 404 });
+    });
+
+    test("toHaveProperty", () => {
+      expect(obj).toHaveProperty("status"); // プロパティが存在するか検証
+      expect(obj).not.toHaveProperty("code");
+    });
+
+    test("objectContaining", () => {
+      expect(obj).toEqual(expect.objectContaining({ status: 200 })); // 対象のオブジェクトが期待値と部分的に一致していればOK
+      expect(obj).not.toEqual(expect.objectContaining({ status: 404 }));
     });
   });
 });
