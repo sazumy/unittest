@@ -22,4 +22,9 @@ test("パスワード入力欄", async () => {
 
   expect(() => screen.getByRole("textbox", { name: "パスワード" })).toThrow();
   expect(() => screen.getByPlaceholderText("8文字以上で入力")).not.toThrow();
+
+  const password = screen.getByPlaceholderText("8文字以上で入力");
+  const value = "abcd1234";
+  await user.type(password, value);
+  expect(screen.getByDisplayValue(value)).toBeInTheDocument();
 });
