@@ -22,3 +22,8 @@ test("ボタンを押下すると、イベントハンドラーが呼ばれる",
   fireEvent.click(screen.getByRole("button"));
   expect(mockFn).toHaveBeenCalled();
 });
+
+test("Snapshot: アカウント名「taro」が表示される", () => {
+  const { container } = render(<Form name="jiro" />);
+  expect(container).toMatchSnapshot();
+});
