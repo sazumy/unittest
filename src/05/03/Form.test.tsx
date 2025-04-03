@@ -1,6 +1,13 @@
 import { fireEvent, logRoles, render, screen } from "@testing-library/react";
 import { Form } from "./Form";
 
+test("logRoles: レンダリング結果からロールとアクセシブルネームを確認", () => {
+  const { container } = render(<Form name="taro" />);
+  logRoles(container);
+  // expect(screen.getByRole("heading")).toHaveTextContent("アカウント情報");
+  // expect(screen.getByText("taro")).toBeInTheDocument();
+});
+
 test("名前の表示", () => {
   render(<Form name="taro" />);
   expect(screen.getByText("taro")).toBeInTheDocument();
